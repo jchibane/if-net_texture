@@ -1,0 +1,25 @@
+input_type: pointcloud
+input_resolution: 128
+input_points_number: 100000
+model: TEXR
+folder_name: SHARP2020_c1_t1
+data_path: dataset/SHARP2020/challenge1-track1/
+data_bounding_box: [-0.8, 0.8, -0.15, 2.1, -0.8, 0.8]
+split_file: dataset/SHARP2020/challenge1-track1/split.npz
+preprocessing:
+ color_sampling:
+  input_files_regex: /*/*/*_normalized.obj
+  sample_number: 100000
+ voxelized_colored_pointcloud_sampling:
+  input_files_regex: /*/*/*-partial-*.obj
+training:
+ batch_size: 2
+ sample_points_per_object: 50000
+ optimizer: Adam
+generation:
+ retrieval_resolution: 256
+ checkpoint: -1
+ batch_points: 800000
+ mode: test
+ retrieval_threshold: 0.5
+

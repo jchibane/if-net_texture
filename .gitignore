@@ -1,0 +1,12 @@
+__pycache__
+*.so
+build/
+*.pyc
+*.c
+/experiments/*
+*.cpp
+/trash/
+!.gitkeep
+dataset/SHARP2020/challenge1-track1/*
+.idea/*
+README.md~

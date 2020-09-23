@@ -1,0 +1,25 @@
+input_type: voxels
+input_resolution: 32
+input_points_number: 3000
+model: ShapeNet32Vox
+data_path: datasets/shapenet/data/
+data_bounding_box: [-0.5,0.5,-0.5,0.5,-0.5,0.5]
+split_file: datasets/shapenet/split.npz
+preprocessing:
+ boundary_sampling:
+  regex_input_files: /*/*/isosurf_scaled.off
+  sample_number: 100000
+  append_inputname_to_outputname: false
+training:
+ sample_distribution: [0.5,0.5]
+ sample_sigmas: [0.1,0.01]
+ batch_size: 6
+ sample_points_per_object: 50000
+ optimizer: Adam
+generation:
+ retrieval_resolution: 256
+ checkpoint: -1
+ batch_points: 800000
+ mode: test
+ retrieval_threshold: 0.5
+

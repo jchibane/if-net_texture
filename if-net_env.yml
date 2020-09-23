@@ -1,0 +1,14 @@
+name: tex_if-net
+channels:
+  - conda-forge
+  - pytorch
+  - defaults
+dependencies:
+  - trimesh=3.6.18
+  - pytorch==1.1.0
+  - cudatoolkit=9.0
+  - tensorboard=1.14.0
+  - numpy=1.17
+  - pyyaml
+  - pillow
+  - tqdm

@@ -1,0 +1,7 @@
+  argparse
+  numpy
+  pathlib
+  moderngl
+  opencv-python
+  scipy
+  nptyping
