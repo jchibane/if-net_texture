@@ -12,6 +12,18 @@ Published in European Conference on Computer Vision (ECCV) Workshops.
 
 
 #### Citation
+If you find our code or paper usful for your project, please consider citing:
+
+    @inproceedings{chibane20ifnet,
+        title = {Implicit Functions in Feature Space for 3D Shape Reconstruction and Completion},
+        author = {Chibane, Julian and Alldieck, Thiemo and Pons-Moll, Gerard},
+        booktitle = {{IEEE} Conference on Computer Vision and Pattern Recognition (CVPR)},
+        month = {jun},
+        organization = {{IEEE}},
+        year = {2020},
+    }
+and
+
     @inproceedings{chibane2020ifnet_texture,
         title = {Implicit Feature Networks for Texture Completion from Partial 3D Data},
         author = {Chibane, Julian and Pons-Moll, Gerard},
