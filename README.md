@@ -78,6 +78,10 @@ A data split into training, test and validation is created with
 
 `python data_processing/create_split.py config/SHARP2020/track1.yaml`.
 
+## Pretrained Model
+A pretrained model can be found [here](https://nextcloud.mpi-klsb.mpg.de/index.php/s/xPTb4oHb83Txi2W).
+
+
 ## Training and Generation
 
 A model is trained to predict the correct color of a surface point given colored, partial human and ground truth (complete), uncolored human. Use
