@@ -1,0 +1,26 @@
+#!/bin/bash
+# Generate partial data with the hole method with different configurations.
+
+(( $# != 1 )) && { echo "usage: $0 MESH"; exit 1; }
+
+mesh=$1
+
+out=${mesh%.*}-holes-h_20-d_1.npz
+python -m sharp shoot $mesh $out --holes 20 --dropout 0.01
+printf .
+out=${mesh%.*}-holes-h_40-d_1.npz
+python -m sharp shoot $mesh $out --holes 40 --dropout 0.01
+printf .
+out=${mesh%.*}-holes-h_60-d_1.npz
+python -m sharp shoot $mesh $out --holes 60 --dropout 0.01
+printf .
+
+out=${mesh%.*}-holes-h_20-d_2.npz
+python -m sharp shoot $mesh $out --holes 20 --dropout 0.02
+printf .
+out=${mesh%.*}-holes-h_40-d_2.npz
+python -m sharp shoot $mesh $out --holes 40 --dropout 0.02
+printf .
+out=${mesh%.*}-holes-h_60-d_2.npz
+python -m sharp shoot $mesh $out --holes 60 --dropout 0.02
+printf .

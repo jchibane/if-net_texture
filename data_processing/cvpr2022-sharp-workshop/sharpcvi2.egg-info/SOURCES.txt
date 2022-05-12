@@ -1,0 +1,12 @@
+setup.py
+sharp/__init__.py
+sharp/__main__.py
+sharp/data.py
+sharp/landmarks.py
+sharp/linalg.py
+sharp/trirender.py
+sharp/utils.py
+sharpcvi2.egg-info/PKG-INFO
+sharpcvi2.egg-info/SOURCES.txt
+sharpcvi2.egg-info/dependency_links.txt
+sharpcvi2.egg-info/top_level.txt

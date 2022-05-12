@@ -1,25 +1,29 @@
 import numpy as np
+from torch import full
 import trimesh
 from glob import glob
 import os
 import multiprocessing as mp
 from multiprocessing import Pool
 import argparse
-import config.config_loader as cfg_loader
 import utils
 import traceback
 import tqdm
 
+import sys
+sys.path.append(".")
+from config import config_loader as cfg_loader
 
 
-
-def sample_colors(gt_mesh_path):
+def sample_colors(gt_mesh_params):
+    cfg, num_points, bbox, gt_mesh_path = gt_mesh_params
     try:
         path = os.path.normpath(gt_mesh_path)
+
         challange = path.split(os.sep)[-4]
-        split = path.split(os.sep)[-3]
-        gt_file_name = path.split(os.sep)[-2]
-        full_file_name = path.split(os.sep)[-1][:-4]
+        split = path.split(os.sep)[-3] # train_gt
+        gt_file_name = path.split(os.sep)[-2] # model_2
+        full_file_name = path.split(os.sep)[-1][:-4] # model_2
 
         out_file = cfg['data_path'] + '/{}/{}/{}_color_samples{}_bbox{}.npz' \
             .format(split, gt_file_name, full_file_name, num_points, cfg['data_bounding_box_str'])
@@ -69,10 +73,17 @@ if __name__ == '__main__':
     
     print('Fining all gt object paths for point and RGB sampling.')
     paths = glob(cfg['data_path'] + cfg['preprocessing']['color_sampling']['input_files_regex'])
-    
+
+    print(paths)
+
+    params = []
+    for path in paths:
+        params.append((cfg, num_points, bbox, path))
+
+     
     print('Start sampling.')    
     p = Pool(mp.cpu_count())
-    for _ in tqdm.tqdm(p.imap_unordered(sample_colors, paths), total=len(paths)):
+    for _ in tqdm.tqdm(p.imap_unordered(sample_colors, params), total=len(paths)):
         pass
     p.close()
     p.join()

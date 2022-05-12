@@ -8,20 +8,28 @@ import multiprocessing as mp
 from multiprocessing import Pool
 import argparse
 import random
-import config.config_loader as cfg_loader
+
+import sys
+sys.path.append(".")
+from config import config_loader as cfg_loader
 import traceback
 import tqdm
 import utils
 
 
-def voxelized_colored_pointcloud_sampling(partial_mesh_path):
+def voxelized_colored_pointcloud_sampling(tmp_path):
+    partial_mesh_path, grid_points, kdtree, bbox, res, num_points, bbox_str = tmp_path
     try:
         path = os.path.normpath(partial_mesh_path)
-        gt_file_name = path.split(os.sep)[-2]
-        full_file_name = path.split(os.sep)[-1][:-4]
+        gt_file_name = path.split(os.sep)[-2] # model 2
+        full_file_name = path.split(os.sep)[-1][:-4] # model_2-partial_01
 
         out_file = os.path.dirname(partial_mesh_path) + '/{}_voxelized_colored_point_cloud_res{}_points{}_bbox{}.npz'\
             .format(full_file_name, res, num_points, bbox_str)
+        
+        print("gt_file_name:", gt_file_name)
+        print("partial_path: ", os.path.dirname(partial_mesh_path))
+
         
         if os.path.exists(out_file):
             print('File exists. Done.')
@@ -61,7 +69,10 @@ def voxelized_colored_pointcloud_sampling(partial_mesh_path):
 
         # encode uncolorized, complete shape of object (at inference time obtained from IF-Nets surface reconstruction)
         # encoding is done by sampling a pointcloud and voxelizing it (into discrete grid for 3D CNN usage)
-        full_shape = trimesh.load(os.path.join(os.path.dirname(partial_mesh_path) , gt_file_name +'_normalized.obj'))
+        dir = os.path.normpath(os.path.dirname(partial_mesh_path))
+        dir_comp = dir.split(os.sep)
+        dir_comp[-2] = dir_comp[-2][:-7] + 'gt'
+        full_shape = trimesh.load(os.path.join(os.sep.join(dir_comp), gt_file_name +'.obj'))
         shape_point_cloud = full_shape.sample(num_points)
         S = np.zeros(len(grid_points), dtype=np.int8)
 
@@ -95,10 +106,14 @@ if __name__ == '__main__':
 
     print('Fining all input partial paths for voxelization.')
     paths = glob(cfg['data_path'] + cfg['preprocessing']['voxelized_colored_pointcloud_sampling']['input_files_regex'])
+    new_paths = []
+    for path in paths:
+        new_paths.append((path, grid_points, kdtree, bbox, res, num_points, bbox_str))
 
     print('Start voxelization.')
     p = Pool(mp.cpu_count())
-    for _ in tqdm.tqdm(p.imap_unordered(voxelized_colored_pointcloud_sampling, paths), total=len(paths)):
+    for _ in tqdm.tqdm(p.imap_unordered(voxelized_colored_pointcloud_sampling, new_paths), total=len(paths)):
         pass
     p.close()
     p.join()
+    

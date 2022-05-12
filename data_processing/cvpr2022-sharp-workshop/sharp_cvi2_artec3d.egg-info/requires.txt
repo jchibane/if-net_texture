@@ -1,0 +1,8 @@
+numpy
+open3d==0.10
+argparse
+opencv-python
+nptyping
+moderngl
+pathlib
+scipy

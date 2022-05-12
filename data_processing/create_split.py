@@ -1,7 +1,9 @@
 from glob import glob
 import random
 import numpy as np
-import config.config_loader as cfg_loader
+import sys
+sys.path.append(".")
+from config import config_loader as cfg_loader
 import argparse
 import random
 import os

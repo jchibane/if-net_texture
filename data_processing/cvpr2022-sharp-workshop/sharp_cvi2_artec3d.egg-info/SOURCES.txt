@@ -1,0 +1,13 @@
+setup.py
+sharp/__init__.py
+sharp/__main__.py
+sharp/data.py
+sharp/landmarks.py
+sharp/linalg.py
+sharp/trirender.py
+sharp/utils.py
+sharp_cvi2_artec3d.egg-info/PKG-INFO
+sharp_cvi2_artec3d.egg-info/SOURCES.txt
+sharp_cvi2_artec3d.egg-info/dependency_links.txt
+sharp_cvi2_artec3d.egg-info/requires.txt
+sharp_cvi2_artec3d.egg-info/top_level.txt

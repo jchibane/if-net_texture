@@ -1,0 +1,8 @@
+argparse
+numpy
+pathlib2
+moderngl
+opencv-python
+scipy
+nptyping==1.4.4
+matplotlib
